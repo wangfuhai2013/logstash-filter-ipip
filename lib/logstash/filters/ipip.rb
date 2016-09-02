@@ -95,7 +95,11 @@ module SeventeenMon
       country: result[0],
       province: result[1],
       city: result[2],
-      carrier: result[4]
+      carrier: result[4],
+      latitude: result[5],
+      longitude: result[6],
+      location: "#{result[5].to_f},#{result[6].to_f}",
+      timezone: result[7]  
     }
     end
   end
@@ -178,7 +182,7 @@ class LogStash::Filters::IPIP < LogStash::Filters::Base
 
     ipip_data.each do |key, value|
       event[@target][key.to_s] = value
-    end
+    end if ipip_data
 
     # filter_matched should go in the last line of our successful code
     filter_matched(event)
